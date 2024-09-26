@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 
 function Homepage() {
@@ -9,7 +8,7 @@ function Homepage() {
   };
 
   return (
-    <div>
+    <div className="flex flex-col gap-y-10 items-center">
       <h1>Welcome to Shortcuts Quiz</h1>
       <button onClick={startQuiz}>Start a New Quiz</button>
     </div>
