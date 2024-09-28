@@ -11,145 +11,129 @@ interface Shortcut {
 function QuizPage() {
   const { appName } = useParams<{ appName: string }>();
   const navigate = useNavigate();
-  const [question, setQuestion] = useState<Shortcut | null>(null);
-  const [isKeyPressMode, setIsKeyPressMode] = useState<boolean>(false);
+  const [questions, setQuestions] = useState<Shortcut[]>([]);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
   const [pressedKeys, setPressedKeys] = useState<string[]>([]);
-  const [keyPressIndex, setKeyPressIndex] = useState<number>(0); // Track the number of keys pressed
-  const [usersAnswer, setUsersAnswer] = useState<string>("");
-  const [isUserAnswerCorrect, setIsUserAnswerCorrect] = useState<boolean>(false)
+  const [usersAnswers, setUsersAnswers] = useState<string[]>([]);
+  const [isKeyPressMode, setIsKeyPressMode] = useState<boolean>(false);
 
   useEffect(() => {
     if (appName !== "vscode") {
       navigate("/quiz/select");
     } else {
-      // @TODO: really should set this only once the quiz has started...
-      setIsUserAnswerCorrect(true)
-      generateRandomQuestion();
+      initializeQuiz();
     }
   }, [appName, navigate]);
 
-  const generateRandomQuestion = () => {
-    const randomIndex = Math.floor(Math.random() * shortcuts.length);
-    const randomQuestion: Shortcut = shortcuts[randomIndex];
-    const shouldPressKeys = Math.random() < 0.5;
+  const initializeQuiz = () => {
+    // Randomize or set questions
+    const randomQuestions = generateRandomQuestions();
+    setQuestions(randomQuestions);
+    setIsKeyPressMode(randomQuestions[0].keys.length > 0);
+  };
 
-    setQuestion(randomQuestion);
-    setIsKeyPressMode(shouldPressKeys);
-    setIsUserAnswerCorrect(false)
-
-    // Resetting all user input values
-    setPressedKeys([]);
-    setUsersAnswer("")
-    setKeyPressIndex(0);
+  const generateRandomQuestions = (): Shortcut[] => {
+    return Array.from({ length: 5 }, () => {
+      const randomIndex = Math.floor(Math.random() * shortcuts.length);
+      return shortcuts[randomIndex];
+    });
   };
 
   const handleKeyPress = (e: KeyboardEvent) => {
-    console.log(e.key)
     const key = getKeyString(e);
+    setPressedKeys((prevKeys) => [...prevKeys, key]);
+  };
 
-    // Check if the pressed key matches the current expected key in the sequence
-    if (question && key === question.keys[keyPressIndex]) {
-      setPressedKeys((prevKeys) => [...prevKeys, key]);
+  const getKeyString = (e: KeyboardEvent): string => {
+    const specialKeys: { [key: string]: string } = {
+      Control: "Ctrl",
+      Meta: "Cmd",
+    };
+    return specialKeys[e.key] ?? e.key.toUpperCase();
+  };
 
-      // Only increiment if not on last key
-      if (keyPressIndex + 1 < question.keys.length) {
-        setKeyPressIndex((prevIndex) => prevIndex + 1);
-      }
+  const clearKeys = () => {
+    setPressedKeys([]);
+  };
 
-      // If all keys are pressed, check if the answer is correct
-      if (keyPressIndex + 1 === question.keys.length) {
-        alert("Correct!");
-        setIsUserAnswerCorrect(true);
-        // generateRandomQuestion(); // Move to next question
-      }
-    } else {
-      // If the wrong key is pressed, reset and notify the user
-      alert("Incorrect! Please try again.");
+  const saveAnswer = () => {
+    const currentQuestion = questions[currentQuestionIndex];
+    const userAnswer = isKeyPressMode
+      ? pressedKeys.join(" + ")
+      : usersAnswers[currentQuestionIndex] || "";
+
+    const updatedAnswers = [...usersAnswers];
+    updatedAnswers[currentQuestionIndex] = userAnswer;
+    setUsersAnswers(updatedAnswers);
+
+    // Move to next question
+    if (currentQuestionIndex + 1 < questions.length) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
       setPressedKeys([]);
-      setKeyPressIndex(0);
+      setIsKeyPressMode(questions[currentQuestionIndex + 1].keys.length > 0);
+    } else {
+      alert("You've reached the end of the quiz!");
     }
+  };
+
+  const submitQuiz = () => {
+    const results = questions.map((question, index) => {
+      const correctAnswer = question.keys.join(" + ").toLowerCase();
+      const userAnswer = (usersAnswers[index] || "").toLowerCase();
+      return correctAnswer === userAnswer;
+    });
+
+    const correctCount = results.filter(Boolean).length;
+    alert(`You got ${correctCount} out of ${questions.length} correct!`);
   };
 
   useEffect(() => {
-    if (isKeyPressMode && !isUserAnswerCorrect) {
+    if (isKeyPressMode) {
       window.addEventListener("keydown", handleKeyPress);
       return () => window.removeEventListener("keydown", handleKeyPress);
     }
-  }, [isKeyPressMode, keyPressIndex, question]);
-
-  const getKeyString = (e: KeyboardEvent): string => {
-    const speicalKeys: {[key: string]: string} = {
-      "Control": "Ctrl",
-      // @TODO: Need to consider OS
-      Meta: "Cmd"
-    } 
-
-    // Casting to uppercase for consitency
-    return speicalKeys[e.key] ?? e.key.toUpperCase()
-  };
-
-  const submitAnswer = (e:any) => {
-    e.preventDefault();
-
-    const isQuestionCorrect:boolean = question?.answers.includes(usersAnswer.toLocaleLowerCase()) || false
-
-    if (isQuestionCorrect) {
-      // generateRandomQuestion();
-      setIsUserAnswerCorrect(true);
-      alert("Correct!");
-    } else {
-      // @TODO: Make this reuable not hard coded
-      alert("Try again")
-    }
-  }
-
-  const nextQuestion = () => {
-    if (isUserAnswerCorrect) {
-      generateRandomQuestion()
-    } else {
-      alert("You must get this question correct before moving on")
-    }
-  }
+  }, [isKeyPressMode]);
 
   return (
     <div className="flex flex-col gap-y-10 items-center">
       <h1>{appName} Quiz</h1>
-      {question ? (
+      {questions.length > 0 && currentQuestionIndex < questions.length - 1 ? (
         <>
+          <h2>Question {currentQuestionIndex + 1} of {questions.length}</h2>
           {isKeyPressMode ? (
             <div className="flex flex-col gap-y-5 items-center">
-              <h2>Press this shortcut: {question.description}</h2>
+              <h2>Press this shortcut: {questions[currentQuestionIndex].description}</h2>
               <p>Keys pressed: {pressedKeys.join(" + ")}</p>
-              <p>Waiting for key {keyPressIndex + 1} of {question.keys.length}</p>
+
+              <div className="flex gap-x-3">
+                <button onClick={clearKeys}>Clear</button>
+                <button onClick={saveAnswer}>Next Question</button>
+              </div>
             </div>
           ) : (
             <form className="flex flex-col gap-y-5 items-center">
               <h2>What's this shortcut?</h2>
-              <p>{question.keys.join(" + ")}</p>
+              <p>{questions[currentQuestionIndex].keys.join(" + ")}</p>
 
-              <br />
+              <input
+                type="text"
+                value={usersAnswers[currentQuestionIndex] || ""}
+                onChange={(e) => {
+                  const updatedAnswers = [...usersAnswers];
+                  updatedAnswers[currentQuestionIndex] = e.target.value;
+                  setUsersAnswers(updatedAnswers);
+                }}
+              />
 
-              <label className="flex flex-col">
-                Answer
-
-                <input 
-                  type="text"
-                  required
-                  value={usersAnswer}
-                  onChange={e => setUsersAnswer(e.target.value)}
-                />
-              </label>
-
-              <button onClick={submitAnswer}>Submit answer</button>
+              <button onClick={saveAnswer}>Next Question</button>
             </form>
           )}
-
-          {/* @TODO: Ensure questions has been answered before moving on */}
-          {/* @TODO: Make this a link? */}
-          <button onClick={nextQuestion}>Next Question</button>
         </>
       ) : (
-        <p>Loading...</p>
+        <>
+          <h2>Quiz Completed!</h2>
+          <button onClick={submitQuiz}>Submit Quiz</button>
+        </>
       )}
     </div>
   );
