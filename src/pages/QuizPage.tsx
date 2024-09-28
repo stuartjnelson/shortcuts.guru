@@ -8,6 +8,9 @@ interface Shortcut {
   answers: string[];
 }
 
+type QuizState = "inProgress" | "questionsComplete" | "results";
+
+
 function QuizPage() {
   const { appName } = useParams<{ appName: string }>();
   const navigate = useNavigate();
@@ -16,6 +19,8 @@ function QuizPage() {
   const [pressedKeys, setPressedKeys] = useState<string[]>([]);
   const [usersAnswers, setUsersAnswers] = useState<string[]>([]);
   const [isKeyPressMode, setIsKeyPressMode] = useState<boolean>(false);
+  const [correctAnswerCount, setCorrectAnswerCount] = useState<number>(0)
+  const [quizStageState, setQuizStageState] = useState<QuizState>("inProgress")
 
   useEffect(() => {
     if (appName !== "vscode") {
@@ -72,7 +77,7 @@ function QuizPage() {
       setPressedKeys([]);
       setIsKeyPressMode(questions[currentQuestionIndex + 1].keys.length > 0);
     } else {
-      alert("You've reached the end of the quiz!");
+      setQuizStageState("questionsComplete")
     }
   };
 
@@ -84,7 +89,14 @@ function QuizPage() {
     });
 
     const correctCount = results.filter(Boolean).length;
-    alert(`You got ${correctCount} out of ${questions.length} correct!`);
+    setCorrectAnswerCount(correctCount)
+    setQuizStageState("results")
+    // alert(`You got ${correctCount} out of ${questions.length} correct!`);
+  };
+
+  const startNewQuiz = () => {
+    // Navigate to the quiz page for the selected app
+    navigate(`/quiz/select/`);
   };
 
   useEffect(() => {
@@ -132,7 +144,16 @@ function QuizPage() {
       ) : (
         <>
           <h2>Quiz Completed!</h2>
-          <button onClick={submitQuiz}>Submit Quiz</button>
+            {quizStageState === "results" ? (
+              <>
+                <p>You got { correctAnswerCount } answers correct</p>
+                <button onClick={startNewQuiz}>Start a new quiz</button>
+              </>  
+            ) : (
+                // Infered that this will be shown when `quizStageState === "questionsComplete"
+              <button onClick={submitQuiz}>Get your results Quiz</button>
+            )}
+
         </>
       )}
     </div>
