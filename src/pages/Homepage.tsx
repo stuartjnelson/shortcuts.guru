@@ -12,7 +12,13 @@ function Homepage() {
       <h1>Welcome to Shortcuts.guru</h1>
       <p>An interactive way to become a shortcut poweruser</p>
 
-      <img src="./logo.png" alt="" height="350" width="350" className="invert" />
+      <img
+        src="./logo.png"
+        alt=""
+        height="350"
+        width="350"
+        className="invert"
+      />
 
       <button onClick={startQuiz}>Start a New Quiz</button>
     </div>

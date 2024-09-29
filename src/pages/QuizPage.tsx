@@ -12,7 +12,8 @@ const QuizPage = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
   const [usersAnswers, setUsersAnswers] = useState<UserAnswer>([]);
   const [correctAnswerCount, setCorrectAnswerCount] = useState<number>(0);
-  const [quizStageState, setQuizStageState] = useState<QuizState>("initalising");
+  const [quizStageState, setQuizStageState] =
+    useState<QuizState>("initalising");
 
   useEffect(() => {
     if (appName !== "vscode") {
@@ -26,17 +27,17 @@ const QuizPage = () => {
     const randomQuestions = generateRandomQuestions();
     setQuestions(randomQuestions);
 
-    setQuizStageState("inProgress")
+    setQuizStageState("inProgress");
   };
 
   const saveAnswer = (userAnswer: string) => {
     // Add new answer onto array
-    setUsersAnswers(prevAnswers => [...prevAnswers, userAnswer]);
+    setUsersAnswers((prevAnswers) => [...prevAnswers, userAnswer]);
 
     // If this is not the last question
     if (currentQuestionIndex + 1 < questions.length) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
-    } 
+    }
     // If is last question
     else {
       setQuizStageState("questionsComplete");
@@ -45,9 +46,11 @@ const QuizPage = () => {
 
   const submitQuiz = () => {
     const correctCount = questions.reduce((count, question, index) => {
-      const { isEnterKeyTypeQuestion, keys, multipleChoiseAnswer } = question
-      
-      const correctAnswer = isEnterKeyTypeQuestion ? keys.join(" + ").toLowerCase() : multipleChoiseAnswer;
+      const { isEnterKeyTypeQuestion, keys, multipleChoiseAnswer } = question;
+
+      const correctAnswer = isEnterKeyTypeQuestion
+        ? keys.join(" + ").toLowerCase()
+        : multipleChoiseAnswer;
       const userAnswer = (usersAnswers[index] || "").toLowerCase();
       return correctAnswer === userAnswer ? count + 1 : count;
     }, 0);
@@ -76,7 +79,11 @@ const QuizPage = () => {
           <button onClick={submitQuiz}>Get your results</button>
         </>
       ) : (
-            <QuizResults correctAnswerCount={correctAnswerCount} totalQuestions={questions.length} startNewQuiz={startNewQuiz} />
+        <QuizResults
+          correctAnswerCount={correctAnswerCount}
+          totalQuestions={questions.length}
+          startNewQuiz={startNewQuiz}
+        />
       )}
     </div>
   );
