@@ -31,6 +31,13 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
   }, [question]);
 
   const clearKeys = () => setPressedKeys([]);
+  const clearRadioSelection = () => setSelectedAnswer("");
+
+  const resetQuestion = () => {
+    clearKeys();
+
+    clearRadioSelection();
+  };
 
   const handleSubmit = () => {
     // If there are user entered keys
@@ -41,6 +48,8 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
       clearKeys();
     } else {
       onSaveAnswer(selectedAnswer);
+
+      resetQuestion();
     }
   };
 
@@ -58,7 +67,7 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
         </>
       ) : (
         <>
-          <p>{question.keys.join(" + ")}</p>
+          <p>What does the shortcut {question.keys.join(" + ")} do?</p>
 
           {/* Map over the possible answers to create radio buttons */}
           {question.multipleChoiseOptions.map((answer, index) => (
