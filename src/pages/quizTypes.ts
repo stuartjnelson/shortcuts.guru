@@ -2,8 +2,14 @@
 export interface Shortcut {
     keys: string[];
     description: string;
-    answers: string[];
+    multipleChoiseOptions: string[];
+    multipleChoiseAnswer: string;
     isEnterKeyTypeQuestion: boolean;
+}
+
+export interface UserAnswer {
+    answer: string,
+    isEnterKeyTypeQuestion: boolean
 }
 
 // The possible states the quiz can be in

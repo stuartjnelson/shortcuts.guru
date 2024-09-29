@@ -3,14 +3,14 @@ import { useParams, useNavigate } from "react-router-dom";
 import { generateRandomQuestions } from "./quizUtils";
 import QuizQuestion from "./QuizQuestion";
 import QuizResults from "./QuizResults";
-import type { Shortcut, QuizState } from "./quizTypes"; // Define these types in a `quizTypes.ts` file
+import type { Shortcut, QuizState, UserAnswer } from "./quizTypes"; // Define these types in a `quizTypes.ts` file
 
 const QuizPage = () => {
   const { appName } = useParams<{ appName: string }>();
   const navigate = useNavigate();
   const [questions, setQuestions] = useState<Shortcut[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
-  const [usersAnswers, setUsersAnswers] = useState<string[]>([]);
+  const [usersAnswers, setUsersAnswers] = useState<UserAnswer[]>([]);
   const [correctAnswerCount, setCorrectAnswerCount] = useState<number>(0);
   const [quizStageState, setQuizStageState] = useState<QuizState>("initalising");
 
@@ -29,10 +29,18 @@ const QuizPage = () => {
     setQuizStageState("inProgress")
   };
 
-  const saveAnswer = (userAnswer: string) => {
-    const updatedAnswers = [...usersAnswers];
-    updatedAnswers[currentQuestionIndex] = userAnswer;
-    setUsersAnswers(updatedAnswers);
+  const saveAnswer = (userAnswer: string, isEnterKeyTypeQuestion: boolean) => {
+    // const updatedAnswers = [...usersAnswers];
+    // updatedAnswers[currentQuestionIndex] = userAnswer;
+    
+    const newAnswer: UserAnswer =  {
+      // answer: userAnswer[currentQuestionIndex],
+      answer: userAnswer,
+      isEnterKeyTypeQuestion
+    }
+
+    setUsersAnswers(prevAnswers => [...prevAnswers, newAnswer]);
+
 
     // If this is not the last question
     if (currentQuestionIndex + 1 < questions.length) {
@@ -46,8 +54,10 @@ const QuizPage = () => {
 
   const submitQuiz = () => {
     const correctCount = questions.reduce((count, question, index) => {
-      const correctAnswer = question.keys.join(" + ").toLowerCase();
-      const userAnswer = (usersAnswers[index] || "").toLowerCase();
+      const { isEnterKeyTypeQuestion, keys, multipleChoiseAnswer } = question
+      
+      const correctAnswer = isEnterKeyTypeQuestion ? keys.join(" + ").toLowerCase() : multipleChoiseAnswer;
+      const userAnswer = (usersAnswers[index].answer || "").toLowerCase();
       return correctAnswer === userAnswer ? count + 1 : count;
     }, 0);
 

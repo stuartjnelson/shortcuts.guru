@@ -1,13 +1,15 @@
 [
     {
-      "keys": ["Cmd", "C"],
       "description": "Copy selected text",
-      "answers": ["copy", "copy selected"] 
+      "keys": ["Cmd", "C"],
+      "multipleChoiseOptions": ["copy selected", "paste", "undo", "delete line"],
+      "multipleChoiseAnswer": "copy selected"
     },
     {
-      "keys": ["Cmd", "V"],
       "description": "Paste copied text",
-      "answers": ["paste", "paste selected"] 
+      "keys": ["Cmd", "V"],
+      "multipleChoiseOptions": ["delete line", "paste selected", "copy selected", "move to start of line"],
+      "multipleChoiseAnswer": "paste selected"
     }
   ]
   

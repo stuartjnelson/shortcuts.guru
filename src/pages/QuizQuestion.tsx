@@ -6,12 +6,12 @@ interface QuizQuestionProps {
     question: Shortcut;
     questionIndex: number;
     totalQuestions: number;
-    onSaveAnswer: (answer: string) => void;
+    onSaveAnswer: (answer: string, isEnterKeyTypeQuestion: boolean) => void;
 }
 
 const QuizQuestion: React.FC<QuizQuestionProps> = ({ question, questionIndex, totalQuestions, onSaveAnswer }) => {
     const [pressedKeys, setPressedKeys] = useState<string[]>([]);
-    const [userAnswer, setUserAnswer] = useState<string>("");
+    const [selectedAnswer, setSelectedAnswer] = useState<string>("");
 
     useEffect(() => {
         if (question.keys.length > 0) {
@@ -27,15 +27,16 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({ question, questionIndex, to
 
     const clearKeys = () => setPressedKeys([]);
 
+
     const handleSubmit = () => {
         // If there are user entered keys
-        if (question.keys.length > 0) {
-            onSaveAnswer(pressedKeys.join(" + "));
+        if (question.isEnterKeyTypeQuestion) {
+            onSaveAnswer(pressedKeys.join(" + "), true);
 
             // Clear selection when submitting
             clearKeys()
         } else {
-            onSaveAnswer(userAnswer);
+            onSaveAnswer(selectedAnswer, false);
         }
     };
 
@@ -54,12 +55,25 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({ question, questionIndex, to
             ) : (
                 <>
                     <p>{question.keys.join(" + ")}</p>
-                    <input
-                        type="text"
-                        value={userAnswer}
-                        onChange={(e) => setUserAnswer(e.target.value)}
-                    />
-                    <button onClick={handleSubmit}>Next Question</button>
+
+                    {/* Map over the possible answers to create radio buttons */}
+                    {question.multipleChoiseOptions.map((answer, index) => (
+                        <div key={index}>
+                            <input
+                            type="radio"
+                            id={`answer-${index}`}
+                            name="quizAnswer"
+                            value={answer}
+                            checked={selectedAnswer === answer}
+                            onChange={(e) => setSelectedAnswer(e.target.value)}
+                            />
+                            <label htmlFor={`answer-${index}`}>{answer}</label>
+                        </div>
+                    ))}
+
+                    <button onClick={handleSubmit} disabled={!selectedAnswer}>
+                        Next Question
+                    </button>
                 </>
             )}
         </div>
