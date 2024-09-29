@@ -10,7 +10,7 @@ const QuizPage = () => {
   const navigate = useNavigate();
   const [questions, setQuestions] = useState<Shortcut[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
-  const [usersAnswers, setUsersAnswers] = useState<UserAnswer[]>([]);
+  const [usersAnswers, setUsersAnswers] = useState<UserAnswer>([]);
   const [correctAnswerCount, setCorrectAnswerCount] = useState<number>(0);
   const [quizStageState, setQuizStageState] = useState<QuizState>("initalising");
 
@@ -29,18 +29,9 @@ const QuizPage = () => {
     setQuizStageState("inProgress")
   };
 
-  const saveAnswer = (userAnswer: string, isEnterKeyTypeQuestion: boolean) => {
-    // const updatedAnswers = [...usersAnswers];
-    // updatedAnswers[currentQuestionIndex] = userAnswer;
-    
-    const newAnswer: UserAnswer =  {
-      // answer: userAnswer[currentQuestionIndex],
-      answer: userAnswer,
-      isEnterKeyTypeQuestion
-    }
-
-    setUsersAnswers(prevAnswers => [...prevAnswers, newAnswer]);
-
+  const saveAnswer = (userAnswer: string) => {
+    // Add new answer onto array
+    setUsersAnswers(prevAnswers => [...prevAnswers, userAnswer]);
 
     // If this is not the last question
     if (currentQuestionIndex + 1 < questions.length) {
@@ -57,7 +48,7 @@ const QuizPage = () => {
       const { isEnterKeyTypeQuestion, keys, multipleChoiseAnswer } = question
       
       const correctAnswer = isEnterKeyTypeQuestion ? keys.join(" + ").toLowerCase() : multipleChoiseAnswer;
-      const userAnswer = (usersAnswers[index].answer || "").toLowerCase();
+      const userAnswer = (usersAnswers[index] || "").toLowerCase();
       return correctAnswer === userAnswer ? count + 1 : count;
     }, 0);
 

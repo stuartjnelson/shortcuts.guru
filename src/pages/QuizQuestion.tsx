@@ -6,7 +6,7 @@ interface QuizQuestionProps {
     question: Shortcut;
     questionIndex: number;
     totalQuestions: number;
-    onSaveAnswer: (answer: string, isEnterKeyTypeQuestion: boolean) => void;
+    onSaveAnswer: (answer: string) => void;
 }
 
 const QuizQuestion: React.FC<QuizQuestionProps> = ({ question, questionIndex, totalQuestions, onSaveAnswer }) => {
@@ -31,12 +31,12 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({ question, questionIndex, to
     const handleSubmit = () => {
         // If there are user entered keys
         if (question.isEnterKeyTypeQuestion) {
-            onSaveAnswer(pressedKeys.join(" + "), true);
+            onSaveAnswer(pressedKeys.join(" + "));
 
             // Clear selection when submitting
             clearKeys()
         } else {
-            onSaveAnswer(selectedAnswer, false);
+            onSaveAnswer(selectedAnswer);
         }
     };
 

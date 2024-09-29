@@ -7,10 +7,7 @@ export interface Shortcut {
     isEnterKeyTypeQuestion: boolean;
 }
 
-export interface UserAnswer {
-    answer: string,
-    isEnterKeyTypeQuestion: boolean
-}
+export type UserAnswer = string[];
 
 // The possible states the quiz can be in
 export type QuizState = "initalising" | "inProgress" | "questionsComplete" | "results";
