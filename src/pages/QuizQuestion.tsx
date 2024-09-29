@@ -28,6 +28,7 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({ question, questionIndex, to
     const clearKeys = () => setPressedKeys([]);
 
     const handleSubmit = () => {
+        // If there are user entered keys
         if (question.keys.length > 0) {
             onSaveAnswer(pressedKeys.join(" + "));
 

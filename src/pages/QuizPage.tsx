@@ -34,9 +34,12 @@ const QuizPage = () => {
     updatedAnswers[currentQuestionIndex] = userAnswer;
     setUsersAnswers(updatedAnswers);
 
+    // If this is not the last question
     if (currentQuestionIndex + 1 < questions.length) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
-    } else {
+    } 
+    // If is last question
+    else {
       setQuizStageState("questionsComplete");
     }
   };
@@ -67,9 +70,12 @@ const QuizPage = () => {
           onSaveAnswer={saveAnswer}
         />
       ) : quizStageState === "questionsComplete" ? (
-        <button onClick={submitQuiz}>Submit Quiz</button>
+        <>
+          <p>Congratulations! You've completed the quiz</p>
+          <button onClick={submitQuiz}>Get your results</button>
+        </>
       ) : (
-        <QuizResults correctAnswerCount={correctAnswerCount} startNewQuiz={startNewQuiz} />
+            <QuizResults correctAnswerCount={correctAnswerCount} totalQuestions={questions.length} startNewQuiz={startNewQuiz} />
       )}
     </div>
   );
