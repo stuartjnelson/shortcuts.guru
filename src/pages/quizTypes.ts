@@ -3,6 +3,7 @@ export interface Shortcut {
     keys: string[];
     description: string;
     answers: string[];
+    isEnterKeyTypeQuestion: boolean;
 }
 
 // The possible states the quiz can be in

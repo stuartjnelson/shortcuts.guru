@@ -44,7 +44,7 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({ question, questionIndex, to
             <h2>
                 Question {questionIndex + 1} of {totalQuestions}
             </h2>
-            {question?.keys.length > 0 ? (
+            {question.isEnterKeyTypeQuestion ? (
                 <>
                     <p>Press this shortcut: {question.description}</p>
                     <p>Keys pressed: {pressedKeys.join(" + ")}</p>
