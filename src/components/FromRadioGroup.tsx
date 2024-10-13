@@ -25,6 +25,8 @@ export default function FromRadioGroup({
 
   const formatLegend = (legendStr: string) => {
     const escapedStr = escapeHtml(legendStr);
+
+    // If there is any text wrapped in backticks then format that as a `<code>` element which looks a little like a keyboard key
     return escapedStr.replace(
       /`([^`]+)`/g,
       "<code class='inline-block bg-gray-300 border border-gray-300 text-gray-900 font-mono text-sm px-2 py-1 rounded-md shadow-sm mx-1'>$1</code>"
