@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Label, Radio, RadioGroup } from "react-aria-components";
 import CheckCircleIcon from "@spectrum-icons/workflow/CheckmarkCircle";
+import { escapeHtml } from "../utils/escapeHtml";
 
 interface FormRadioGroupProps {
   className: string;
@@ -22,6 +23,14 @@ export default function FromRadioGroup({
     onChange(selected);
   });
 
+  const formatLegend = (legendStr: string) => {
+    const escapedStr = escapeHtml(legendStr);
+    return escapedStr.replace(
+      /`([^`]+)`/g,
+      "<code class='inline-block bg-gray-300 border border-gray-300 text-gray-900 font-mono text-sm px-2 py-1 rounded-md shadow-sm mx-1'>$1</code>"
+    );
+  };
+
   return (
     <div className={`${className} flex justify-center`}>
       <RadioGroup
@@ -30,7 +39,10 @@ export default function FromRadioGroup({
         value={selected}
         onChange={setSelected}
       >
-        <Label className="text-xl font-semibold mb-2">{legend}</Label>
+        <Label
+          className="text-xl font-semibold mb-2"
+          dangerouslySetInnerHTML={{ __html: formatLegend(legend) }}
+        ></Label>
 
         {options.map((option, i) => {
           return <ShippingOption key={i} name={option} />;

@@ -87,7 +87,7 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
           ))} */}
           <FormRadioGroup
             className="mb-8"
-            legend={`What does the shortcut ${question.keys.join(" + ")} do?`}
+            legend={`What does the shortcut \`${question.keys.join("` + `")}\` do?`}
             onChange={setSelectedAnswer}
             options={question.multipleChoiseOptions}
           />
