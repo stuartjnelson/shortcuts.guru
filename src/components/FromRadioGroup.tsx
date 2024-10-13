@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Label, Radio, RadioGroup } from "react-aria-components";
 import CheckCircleIcon from "@spectrum-icons/workflow/CheckmarkCircle";
 import { escapeHtml } from "../utils/escapeHtml";
+import { capitalizeFirstLetter } from "../utils/capitalizeFirstLetter";
 
 interface FormRadioGroupProps {
   className: string;
@@ -37,19 +38,21 @@ export default function FromRadioGroup({
   return (
     <div className={`${className} flex justify-center`}>
       <RadioGroup
-        className="flex flex-col gap-2 w-full max-w-[300px]"
+        className="flex flex-col gap-2 w-full items-center"
         defaultValue="Standard"
         value={selected}
         onChange={setSelected}
       >
         <Label
-          className="text-xl font-semibold mb-2"
+          className="text-xl font-semibold mb-5"
           dangerouslySetInnerHTML={{ __html: formatLegend(legend) }}
         ></Label>
 
-        {options.map((option, i) => {
-          return <ShippingOption key={i} name={option} />;
-        })}
+        <div className="flex flex-col align-center gap-2 w-full max-w-[300px]">
+          {options.map((option, i) => {
+            return <ShippingOption key={i} name={option} />;
+          })}
+        </div>
       </RadioGroup>
     </div>
   );
@@ -80,7 +83,7 @@ function ShippingOption({ name }: { name: string }) {
           <CheckCircleIcon size="M" width={24} height={24} />
         </div>
         <div className="text-lg font-semibold text-gray-900 group-selected:text-white">
-          {name}
+          {capitalizeFirstLetter(name)}
         </div>
       </div>
     </Radio>
