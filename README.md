@@ -7,6 +7,13 @@ An app to help to learn shortcuts
 - [ ] Improve HTML of questions
   - [ ] Improve form with validation > disabling button
   - [ ] Improve HTML inside forms
+- [ ] Save results into localStorage
+  - [ ] Each quiz completed
+   - Applicaiton
+   - Score
+   - Date
+  - [ ] High score 
+- [ ] View stats from local storage on page  
 - [x] Make keys in radio input quesiton inline code
 - [x] Make keys selected with shortcut inline code
 - [x] Import 3rd party radio input ~~and make layout 2x2 grid for radio inputs~~
