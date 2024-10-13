@@ -1,6 +1,9 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { clsx } from "clsx";
 import type { Shortcut } from "./quizTypes";
 import { getKeyString } from "./quizUtils";
+import FormRadioGroup from "../components/FromRadioGroup";
+import useCreateInlineCodeFromStr from "../hooks/UseCreateInlineCodeFromStr";
 
 interface QuizQuestionProps {
   question: Shortcut;
@@ -53,39 +56,46 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
     }
   };
 
+  const { renderFormattedText } = useCreateInlineCodeFromStr(
+    "Keys pressed: ",
+    "",
+    pressedKeys
+  );
+
   return (
-    <div className="flex flex-col gap-y-5 items-center">
-      <h2>
+    <div className="flex flex-col gap-y-5 items-center max-w-[800px]">
+      <h2 className="mb-10">
         Question {questionIndex + 1} of {totalQuestions}
       </h2>
       {question.isEnterKeyTypeQuestion ? (
         <>
-          <p>Press this shortcut: {question.description}</p>
-          <p>Keys pressed: {pressedKeys.join(" + ")}</p>
+          <p>
+            Press this shortcut: <strong>{question.description}</strong>
+          </p>
+          {renderFormattedText()}
           <button onClick={clearKeys}>Clear</button>
-          <button onClick={handleSubmit}>Next Question</button>
+          <button onClick={handleSubmit}>Next question</button>
         </>
       ) : (
         <>
-          <p>What does the shortcut {question.keys.join(" + ")} do?</p>
+          <FormRadioGroup
+            className="mb-8"
+            legend={`What does the shortcut \`${question.keys.join(
+              "` + `"
+            )}\` do?`}
+            onChange={setSelectedAnswer}
+            options={question.multipleChoiseOptions}
+          />
 
-          {/* Map over the possible answers to create radio buttons */}
-          {question.multipleChoiseOptions.map((answer, index) => (
-            <div key={index}>
-              <input
-                type="radio"
-                id={`answer-${index}`}
-                name="quizAnswer"
-                value={answer}
-                checked={selectedAnswer === answer}
-                onChange={(e) => setSelectedAnswer(e.target.value)}
-              />
-              <label htmlFor={`answer-${index}`}>{answer}</label>
-            </div>
-          ))}
-
-          <button onClick={handleSubmit} disabled={!selectedAnswer}>
-            Next Question
+          <button
+            onClick={handleSubmit}
+            disabled={!selectedAnswer}
+            className={clsx({
+              "bg-gray-500 text-slate-950 cursor-not-allowed": !selectedAnswer,
+              "bg-green-700 text-white": selectedAnswer,
+            })}
+          >
+            Next question
           </button>
         </>
       )}

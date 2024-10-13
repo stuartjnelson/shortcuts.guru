@@ -1,7 +1,7 @@
 import shortcuts from "../../data/vscode.json"; // JSON import for shortcut data
 
-export const generateRandomQuestions = () => {
-  return Array.from({ length: 2 }, () => {
+export const generateRandomQuestions = (numberQuestions: number = 2) => {
+  return Array.from({ length: numberQuestions }, () => {
     const randomIndex = Math.floor(Math.random() * shortcuts.length);
     return {
       ...shortcuts[randomIndex],
