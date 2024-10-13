@@ -315,7 +315,7 @@
     "multipleChoiseAnswer": "open file explorer"
   },
   {
-    "description": "New file in file explorer",
+    "description": "Create new file in file explorer",
     "keys": ["A"],
     "multipleChoiseOptions": [
       "new file in file explorer",
@@ -326,7 +326,7 @@
     "multipleChoiseAnswer": "new file in file explorer"
   },
   {
-    "description": "New folder in file explorer",
+    "description": "Create new folder in file explorer",
     "keys": ["Shift", "A"],
     "multipleChoiseOptions": [
       "new folder in file explorer",
