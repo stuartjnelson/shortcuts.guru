@@ -56,20 +56,11 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
     }
   };
 
-  // FormRadioGroup
-  //           className="mb-8"
-  //           legend={`What does the shortcut \`${question.keys.join(
-  //             "` + `"
-  //           )}\` do?`}
-  //           onChange={setSelectedAnswer}
-  //           options={question.multipleChoiseOptions}
-  //         />
-
-  const formattPressedKeys = (): string => {
-    const keysPressedStr = `Keys pressed: \`${pressedKeys.join("` + `")}\``;
-
-    return useCreateInlineCodeFromStr(keysPressedStr);
-  };
+  const { renderFormattedText } = useCreateInlineCodeFromStr(
+    "Keys pressed: ",
+    "",
+    pressedKeys
+  );
 
   return (
     <div className="flex flex-col gap-y-5 items-center">
@@ -81,9 +72,7 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
           <p>
             Press this shortcut: <strong>{question.description}</strong>
           </p>
-          <p>
-            <span dangerouslySetInnerHTML={{ __html: formattPressedKeys() }} />
-          </p>
+          {renderFormattedText()}
           <button onClick={clearKeys}>Clear</button>
           <button onClick={handleSubmit}>Next Question</button>
         </>
