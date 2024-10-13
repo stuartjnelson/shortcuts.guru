@@ -1,15 +1,339 @@
 [
-    {
-      "description": "Copy selected text",
-      "keys": ["Cmd", "C"],
-      "multipleChoiseOptions": ["copy selected", "paste", "undo", "delete line"],
-      "multipleChoiseAnswer": "copy selected"
-    },
-    {
-      "description": "Paste copied text",
-      "keys": ["Cmd", "V"],
-      "multipleChoiseOptions": ["delete line", "paste selected", "copy selected", "move to start of line"],
-      "multipleChoiseAnswer": "paste selected"
-    }
-  ]
-  
+  {
+    "description": "Copy selected text",
+    "keys": ["Cmd", "C"],
+    "multipleChoiseOptions": ["copy selected", "paste", "undo", "delete line"],
+    "multipleChoiseAnswer": "copy selected"
+  },
+  {
+    "description": "Paste copied text",
+    "keys": ["Cmd", "V"],
+    "multipleChoiseOptions": [
+      "delete line",
+      "paste selected",
+      "copy selected",
+      "move to start of line"
+    ],
+    "multipleChoiseAnswer": "paste selected"
+  },
+  {
+    "description": "Paste copied text",
+    "keys": ["Cmd", "V"],
+    "multipleChoiseOptions": [
+      "delete line",
+      "paste selected",
+      "copy selected",
+      "move to start of line"
+    ],
+    "multipleChoiseAnswer": "paste selected"
+  },
+  {
+    "description": "Move to the beginning of the line",
+    "keys": ["Cmd", "Left"],
+    "multipleChoiseOptions": [
+      "move to start of line",
+      "move to end of line",
+      "select all text",
+      "paste clipboard"
+    ],
+    "multipleChoiseAnswer": "move to start of line"
+  },
+  {
+    "description": "Move one word to the left",
+    "keys": ["Option", "Left"],
+    "multipleChoiseOptions": [
+      "move one character left",
+      "move one word left",
+      "move to start of line",
+      "move to end of line"
+    ],
+    "multipleChoiseAnswer": "move one word left"
+  },
+  {
+    "description": "Move to the end of the line",
+    "keys": ["Cmd", "Right"],
+    "multipleChoiseOptions": [
+      "move to start of line",
+      "move to end of line",
+      "select all text",
+      "move to previous tab"
+    ],
+    "multipleChoiseAnswer": "move to end of line"
+  },
+  {
+    "description": "Move one word to the right",
+    "keys": ["Option", "Right"],
+    "multipleChoiseOptions": [
+      "move one word right",
+      "move one character right",
+      "move to end of line",
+      "move to start of line"
+    ],
+    "multipleChoiseAnswer": "move one word right"
+  },
+  {
+    "description": "Select to the beginning of the line",
+    "keys": ["Cmd", "Shift", "Left"],
+    "multipleChoiseOptions": [
+      "select to start of line",
+      "select to end of line",
+      "copy selected text",
+      "select one word"
+    ],
+    "multipleChoiseAnswer": "select to start of line"
+  },
+  {
+    "description": "Select one word to the left",
+    "keys": ["Option", "Shift", "Left"],
+    "multipleChoiseOptions": [
+      "select one character left",
+      "select one word left",
+      "move to start of line",
+      "move to end of line"
+    ],
+    "multipleChoiseAnswer": "select one word left"
+  },
+  {
+    "description": "Select to the end of the line",
+    "keys": ["Cmd", "Shift", "Right"],
+    "multipleChoiseOptions": [
+      "select to end of line",
+      "select to start of line",
+      "copy selected text",
+      "delete selected text"
+    ],
+    "multipleChoiseAnswer": "select to end of line"
+  },
+  {
+    "description": "Select one word to the right",
+    "keys": ["Option", "Shift", "Right"],
+    "multipleChoiseOptions": [
+      "select one word right",
+      "select one character right",
+      "select to end of line",
+      "select to start of line"
+    ],
+    "multipleChoiseAnswer": "select one word right"
+  },
+  {
+    "description": "Jump to line number",
+    "keys": ["Ctrl", "G"],
+    "multipleChoiseOptions": [
+      "jump to line number",
+      "open command pallet",
+      "find in file",
+      "go to definition"
+    ],
+    "multipleChoiseAnswer": "jump to line number"
+  },
+  {
+    "description": "Open command palette",
+    "keys": ["Cmd", "Shift", "P"],
+    "multipleChoiseOptions": [
+      "open command palette",
+      "open settings",
+      "find file",
+      "change tab"
+    ],
+    "multipleChoiseAnswer": "open command palette"
+  },
+  {
+    "description": "Find file",
+    "keys": ["Cmd", "P"],
+    "multipleChoiseOptions": [
+      "open command palette",
+      "find in file",
+      "find file",
+      "jump to line number"
+    ],
+    "multipleChoiseAnswer": "find file"
+  },
+  {
+    "description": "Switch to the next tab",
+    "keys": ["Ctrl", "Tab"],
+    "multipleChoiseOptions": [
+      "switch to next tab",
+      "close tab",
+      "open command palette",
+      "split editor"
+    ],
+    "multipleChoiseAnswer": "switch to next tab"
+  },
+  {
+    "description": "Switch to the previous tab",
+    "keys": ["Ctrl", "Shift", "Tab"],
+    "multipleChoiseOptions": [
+      "switch to previous tab",
+      "close tab",
+      "open command palette",
+      "split editor"
+    ],
+    "multipleChoiseAnswer": "switch to previous tab"
+  },
+  {
+    "description": "Select next matching selection",
+    "keys": ["Cmd", "D"],
+    "multipleChoiseOptions": [
+      "select next matching selection",
+      "delete line",
+      "go to definition",
+      "select all matching"
+    ],
+    "multipleChoiseAnswer": "select next matching selection"
+  },
+  {
+    "description": "Select all matching",
+    "keys": ["Cmd", "Shift", "L"],
+    "multipleChoiseOptions": [
+      "select next matching selection",
+      "select all matching",
+      "copy selection",
+      "split editor"
+    ],
+    "multipleChoiseAnswer": "select all matching"
+  },
+  {
+    "description": "Select previous matching selection",
+    "keys": ["Cmd", "Shift", "D"],
+    "multipleChoiseOptions": [
+      "select previous matching selection",
+      "delete line",
+      "go to definition",
+      "select next matching selection"
+    ],
+    "multipleChoiseAnswer": "select previous matching selection"
+  },
+  {
+    "description": "Open sidebar",
+    "keys": ["Cmd", "\\"],
+    "multipleChoiseOptions": [
+      "open sidebar",
+      "close sidebar",
+      "comment out line",
+      "open command palette"
+    ],
+    "multipleChoiseAnswer": "open sidebar"
+  },
+  {
+    "description": "Close opened sidebar",
+    "keys": ["Cmd", "\\"],
+    "multipleChoiseOptions": [
+      "open sidebar",
+      "close opened sidebar",
+      "comment out line",
+      "open command palette"
+    ],
+    "multipleChoiseAnswer": "close opened sidebar"
+  },
+  {
+    "description": "Comment out line",
+    "keys": ["Cmd", "/"],
+    "multipleChoiseOptions": [
+      "comment out line",
+      "delete line",
+      "copy line",
+      "split editor"
+    ],
+    "multipleChoiseAnswer": "comment out line"
+  },
+  {
+    "description": "Open autofix menu",
+    "keys": ["Cmd", "."],
+    "multipleChoiseOptions": [
+      "open autofix menu",
+      "open command palette",
+      "find in file",
+      "go to definition"
+    ],
+    "multipleChoiseAnswer": "open autofix menu"
+  },
+  {
+    "description": "Save file",
+    "keys": ["Cmd", "S"],
+    "multipleChoiseOptions": [
+      "save file",
+      "open settings",
+      "close file",
+      "find file"
+    ],
+    "multipleChoiseAnswer": "save file"
+  },
+  {
+    "description": "Undo",
+    "keys": ["Cmd", "Z"],
+    "multipleChoiseOptions": ["undo", "redo", "copy", "paste"],
+    "multipleChoiseAnswer": "undo"
+  },
+  {
+    "description": "Redo",
+    "keys": ["Cmd", "Shift", "Z"],
+    "multipleChoiseOptions": ["redo", "undo", "copy", "paste"],
+    "multipleChoiseAnswer": "redo"
+  },
+  {
+    "description": "Create file",
+    "keys": ["Cmd", "N"],
+    "multipleChoiseOptions": [
+      "create file",
+      "create directory",
+      "open explorer",
+      "save file"
+    ],
+    "multipleChoiseAnswer": "create file"
+  },
+  {
+    "description": "Create directory",
+    "keys": ["Cmd", "Shift", "N"],
+    "multipleChoiseOptions": [
+      "create directory",
+      "create file",
+      "collapse all folders",
+      "open explorer"
+    ],
+    "multipleChoiseAnswer": "create directory"
+  },
+  {
+    "description": "Collapse folder in explorer",
+    "keys": ["Cmd", "Left"],
+    "multipleChoiseOptions": [
+      "collapse folder in explorer",
+      "expand folder in explorer",
+      "close explorer",
+      "open file"
+    ],
+    "multipleChoiseAnswer": "collapse folder in explorer"
+  },
+  {
+    "description": "Open file explorer",
+    "keys": ["Cmd", "Shift", "E"],
+    "multipleChoiseOptions": [
+      "open file explorer",
+      "open command palette",
+      "open search",
+      "open settings"
+    ],
+    "multipleChoiseAnswer": "open file explorer"
+  },
+  {
+    "description": "New file in file explorer",
+    "keys": ["A"],
+    "multipleChoiseOptions": [
+      "new file in file explorer",
+      "new folder",
+      "save file",
+      "open explorer"
+    ],
+    "multipleChoiseAnswer": "new file in file explorer"
+  },
+  {
+    "description": "New folder in file explorer",
+    "keys": ["Shift", "A"],
+    "multipleChoiseOptions": [
+      "new folder in file explorer",
+      "new file  in file explorer",
+      "open explorer",
+      "collapse all folders"
+    ],
+    "multipleChoiseAnswer": "new folder in file explorer"
+  }
+]
