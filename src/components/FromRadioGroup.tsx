@@ -23,6 +23,7 @@ export default function FromRadioGroup({
     onChange(selected);
   });
 
+  // @TODO: Make thi dryer using the hook `useCreateInlineCodeFromStr` or making the hook a util function
   const formatLegend = (legendStr: string) => {
     const escapedStr = escapeHtml(legendStr);
 
