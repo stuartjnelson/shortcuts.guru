@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { clsx } from "clsx";
 import type { Shortcut } from "./quizTypes";
 import { getKeyString } from "./quizUtils";
 import FormRadioGroup from "../components/FromRadioGroup";
@@ -68,14 +69,37 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
         </>
       ) : (
         <>
+          {/* <p>What does the shortcut {question.keys.join(" + ")} do?</p> */}
+
+          {/* Map over the possible answers to create radio buttons */}
+          {/* {question.multipleChoiseOptions.map((answer, index) => (
+            <div key={index}>
+              <input
+                type="radio"
+                id={`answer-${index}`}
+                name="quizAnswer"
+                value={answer}
+                checked={selectedAnswer === answer}
+                onChange={(e) => setSelectedAnswer(e.target.value)}
+              />
+              <label htmlFor={`answer-${index}`}>{answer}</label>
+            </div>
+          ))} */}
           <FormRadioGroup
             className="mb-8"
             legend={`What does the shortcut ${question.keys.join(" + ")} do?`}
-            // legend={"Testing 123"}
+            onChange={setSelectedAnswer}
             options={question.multipleChoiseOptions}
           />
 
-          <button onClick={handleSubmit} disabled={!selectedAnswer}>
+          <button
+            onClick={handleSubmit}
+            disabled={!selectedAnswer}
+            className={clsx({
+              "bg-gray-500 text-slate-950 cursor-not-allowed": !selectedAnswer,
+              "bg-green-700 text-white": selectedAnswer,
+            })}
+          >
             Next Question
           </button>
         </>

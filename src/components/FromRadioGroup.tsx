@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Label, Radio, RadioGroup } from "react-aria-components";
 import CheckCircleIcon from "@spectrum-icons/workflow/CheckmarkCircle";
 
@@ -7,18 +7,28 @@ interface FormRadioGroupProps {
   legend: string;
   //   options: Pick<Shortcut, "multipleChoiseOptions">;
   options: string[];
+  onChange: (value: string) => any;
 }
 
 export default function FromRadioGroup({
   className,
   legend,
   options,
+  onChange,
 }: FormRadioGroupProps) {
+  let [selected, setSelected] = React.useState("");
+
+  useEffect(() => {
+    onChange(selected);
+  });
+
   return (
     <div className={`${className} flex justify-center`}>
       <RadioGroup
         className="flex flex-col gap-2 w-full max-w-[300px]"
         defaultValue="Standard"
+        value={selected}
+        onChange={setSelected}
       >
         <Label className="text-xl font-semibold mb-2">{legend}</Label>
 
