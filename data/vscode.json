@@ -335,5 +335,27 @@
       "collapse all folders"
     ],
     "multipleChoiseAnswer": "new folder in file explorer"
+  },
+  {
+    "description": "Open settings",
+    "keys": ["Cmd", ","],
+    "multipleChoiseOptions": [
+      "open settings",
+      "open explorer",
+      "open command palette",
+      "open terminal"
+    ],
+    "multipleChoiseAnswer": "open settings"
+  },
+  {
+    "description": "Go to matching bracket",
+    "keys": ["Cmd", "Shift", "\\"],
+    "multipleChoiseOptions": [
+      "go to matching bracket",
+      "go to definition",
+      "find in file",
+      "close bracket"
+    ],
+    "multipleChoiseAnswer": "go to matching bracket"
   }
 ]
