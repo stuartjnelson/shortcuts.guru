@@ -24,7 +24,9 @@ const QuizPage = () => {
   }, [appName, navigate]);
 
   const initializeQuiz = () => {
-    const randomQuestions = generateRandomQuestions();
+    // @TODO: Make nunmber of questions a setting
+    // Create 5 questions
+    const randomQuestions = generateRandomQuestions(5);
     setQuestions(randomQuestions);
 
     setQuizStageState("inProgress");
