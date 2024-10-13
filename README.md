@@ -30,3 +30,4 @@ An app to help to learn shortcuts for applications using multi choice answers an
 - [ ] Add link to wrong answers to study page for that shortcut
 - [ ] Sort DNS for custom domain
 - [ ] Have some kind of OS/Keyboard type selector which gives correct shortcuts
+- [ ] Create tools as sibling to applications. Create a Git quiz 
