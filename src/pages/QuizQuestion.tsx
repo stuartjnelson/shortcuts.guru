@@ -78,22 +78,6 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
         </>
       ) : (
         <>
-          {/* <p>What does the shortcut {question.keys.join(" + ")} do?</p> */}
-
-          {/* Map over the possible answers to create radio buttons */}
-          {/* {question.multipleChoiseOptions.map((answer, index) => (
-            <div key={index}>
-              <input
-                type="radio"
-                id={`answer-${index}`}
-                name="quizAnswer"
-                value={answer}
-                checked={selectedAnswer === answer}
-                onChange={(e) => setSelectedAnswer(e.target.value)}
-              />
-              <label htmlFor={`answer-${index}`}>{answer}</label>
-            </div>
-          ))} */}
           <FormRadioGroup
             className="mb-8"
             legend={`What does the shortcut \`${question.keys.join(
