@@ -8,7 +8,7 @@ function SelectionPage() {
 
   const selectApp = (appName: string) => {
     // Navigate to the quiz page for the selected app
-    navigate(`/quiz/${appName}/new`);
+    navigate(`/quiz/${appName}/settings`);
   };
 
   const applications = useGetApplicationData();
