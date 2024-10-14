@@ -6,6 +6,7 @@ An app to help to learn shortcuts for applications using multi choice answers an
 
 ## Tasks
 - [ ] Allow exclusion of shortcuts
+- [ ] Add breadcrumbs
 - [ ] If is non-keyboard device give option to only have multi choice answers
 - [ ] Improve HTML of questions
   - [ ] Add a heading to `DefaultLayout.tsx` which can take a `headingElement` and `headingText` props to standadise layouts further
@@ -18,12 +19,13 @@ An app to help to learn shortcuts for applications using multi choice answers an
    - Date
   - [ ] High score 
 - [ ] View stats from local storage on page  
+- [ ] Add route gaurds
 - [ ] On summary page show results for which questions for right/wrong
 - [ ] Create a page to study - maybe just a big gloassary/index
 - [ ] Add link to wrong answers to study page for that shortcut
 - [ ] Sort DNS for custom domain
 - [ ] Have some kind of OS/Keyboard type selector which gives correct shortcuts
-- [ ] Create tools as sibling to applications. Create a Git quiz 
+- [ ] Create tools as sibling to applications. Create a Git quiz
 
 ### Archive
 - [x] small UX improvements
