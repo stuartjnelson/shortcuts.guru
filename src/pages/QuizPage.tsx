@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { generateRandomQuestions } from "./quizUtils";
 import QuizQuestion from "./QuizQuestion";
 import QuizResults from "./QuizResults";
-import type { Shortcut, QuizState, UserAnswer } from "./quizTypes"; // Define these types in a `quizTypes.ts` file
+import type { Shortcut, QuizState, UserAnswer } from "../types/quiz.types"; // Define these types in a `quizTypes.ts` file
 
 const QuizPage = () => {
   const { appName } = useParams<{ appName: string }>();
