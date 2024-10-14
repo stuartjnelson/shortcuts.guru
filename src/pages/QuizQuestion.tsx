@@ -21,6 +21,7 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
 }) => {
   const [pressedKeys, setPressedKeys] = useState<string[]>([]);
   const [selectedAnswer, setSelectedAnswer] = useState<string>("");
+  const [multiChoiceOptions, setMultiChoiceOptions] = useState<string[]>([]);
 
   useEffect(() => {
     if (question.keys.length > 0) {
@@ -33,6 +34,13 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
       return () => window.removeEventListener("keydown", handleKeyPress);
     }
   }, [question]);
+
+  
+
+  useEffect(() => {
+    // Shuffle the options once on the initial render
+    setMultiChoiceOptions(shuffleArray(question.multipleChoiseOptions));
+  }, [question.multipleChoiseOptions]); 
 
   const clearKeys = () => setPressedKeys([]);
   const clearRadioSelection = () => setSelectedAnswer("");
@@ -85,8 +93,7 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
               "` + `"
             )}\` do?`}
             onChange={setSelectedAnswer}
-            // @NOTE: Ensure we randomly shuffle the order of radio inputs each time
-            options={shuffleArray(question.multipleChoiseOptions)}
+            options={multiChoiceOptions}
           />
 
           <button
