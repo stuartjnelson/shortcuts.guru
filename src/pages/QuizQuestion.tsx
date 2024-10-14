@@ -4,6 +4,7 @@ import type { Shortcut } from "./quizTypes";
 import { getKeyString } from "./quizUtils";
 import FormRadioGroup from "../components/FromRadioGroup";
 import useCreateInlineCodeFromStr from "../hooks/UseCreateInlineCodeFromStr";
+import { shuffleArray } from "../utils/shuffleArray";
 
 interface QuizQuestionProps {
   question: Shortcut;
@@ -84,7 +85,8 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
               "` + `"
             )}\` do?`}
             onChange={setSelectedAnswer}
-            options={question.multipleChoiseOptions}
+            // @NOTE: Ensure we randomly shuffle the order of radio inputs each time
+            options={shuffleArray(question.multipleChoiseOptions)}
           />
 
           <button
