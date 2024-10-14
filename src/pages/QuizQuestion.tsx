@@ -63,7 +63,7 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
   );
 
   return (
-    <div className="flex flex-col gap-y-5 items-center max-w-[800px]">
+    <>
       <h2 className="mb-10">
         Question {questionIndex + 1} of {totalQuestions}
       </h2>
@@ -99,7 +99,7 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
           </button>
         </>
       )}
-    </div>
+    </>
   );
 };
 

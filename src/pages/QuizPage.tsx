@@ -66,7 +66,7 @@ const QuizPage = () => {
   };
 
   return (
-    <div className="flex flex-col gap-y-10 items-center">
+    <>
       <h1>{appName} Quiz</h1>
       {quizStageState === "inProgress" ? (
         <QuizQuestion
@@ -87,7 +87,7 @@ const QuizPage = () => {
           startNewQuiz={startNewQuiz}
         />
       )}
-    </div>
+    </>
   );
 };
 
