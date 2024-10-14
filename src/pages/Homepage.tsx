@@ -8,10 +8,9 @@ function Homepage() {
   };
 
   return (
-    <div className="flex flex-col gap-y-10 items-center p-5">
-      <h1>Welcome to Shortcuts.guru</h1>
-      <p>An interactive way to become a shortcut poweruser</p>
-
+    <>
+      <h1 className="text-5xl sm:text-6xl md:text-7xl text-center text-balance">Welcome to Shortcuts.guru</h1>
+      <p className="text-xl">An interactive way to become a shortcut poweruser</p>
       <img
         src="./logo.png"
         alt=""
@@ -21,7 +20,7 @@ function Homepage() {
       />
 
       <button onClick={startQuiz}>Start a New Quiz</button>
-    </div>
+    </>
   );
 }
 

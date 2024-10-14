@@ -82,7 +82,7 @@ function ShippingOption({ name }: { name: string }) {
         <div className="flex items-center shrink-0 text-blue-100 group-selected:text-white">
           <CheckCircleIcon size="M" width={24} height={24} />
         </div>
-        <div className="text-lg font-semibold text-gray-900 group-selected:text-white">
+        <div className="text-lg font-semibold text-gray-900 group-selected:text-white text-right text-balance">
           {capitalizeFirstLetter(name)}
         </div>
       </div>

@@ -315,28 +315,6 @@
     "multipleChoiseAnswer": "open file explorer"
   },
   {
-    "description": "Create new file in file explorer",
-    "keys": ["A"],
-    "multipleChoiseOptions": [
-      "new file in file explorer",
-      "new folder",
-      "save file",
-      "open explorer"
-    ],
-    "multipleChoiseAnswer": "new file in file explorer"
-  },
-  {
-    "description": "Create new folder in file explorer",
-    "keys": ["Shift", "A"],
-    "multipleChoiseOptions": [
-      "new folder in file explorer",
-      "new file  in file explorer",
-      "open explorer",
-      "collapse all folders"
-    ],
-    "multipleChoiseAnswer": "new folder in file explorer"
-  },
-  {
     "description": "Open settings",
     "keys": ["Cmd", ","],
     "multipleChoiseOptions": [
@@ -357,5 +335,27 @@
       "close bracket"
     ],
     "multipleChoiseAnswer": "go to matching bracket"
-  }
+  },
+  {
+    "description": "Select current line",
+    "keys": ["Cmd", "L"],
+    "multipleChoiseOptions": [
+      "select current line",
+      "delete current line",
+      "copy current line",
+      "cut current line"
+    ],
+    "multipleChoiseAnswer": "select current line"
+  },
+  {
+    "description": "Reopen closed editor",
+    "keys": ["Cmd", "Shift", "T"],
+    "multipleChoiseOptions": [
+      "reopen closed editor",
+      "close current editor",
+      "open new editor",
+      "save all editors"
+    ],
+    "multipleChoiseAnswer": "reopen closed editor"
+  }    
 ]
