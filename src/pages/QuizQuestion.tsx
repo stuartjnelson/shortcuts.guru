@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { clsx } from "clsx";
-import type { Shortcut } from "./quizTypes";
+import type { Shortcut } from "../types/quiz.types";
 import { getKeyString } from "./quizUtils";
 import FormRadioGroup from "../components/FromRadioGroup";
 import useCreateInlineCodeFromStr from "../hooks/UseCreateInlineCodeFromStr";
