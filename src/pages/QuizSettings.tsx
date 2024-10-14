@@ -34,6 +34,12 @@ const QuizSettings = () => {
         navigate(`/quiz/${appName}/new`)
     };
 
+    // @TODO:
+    //        I feel this page sould be responisble for setting random quesitons not the context. Context sets it to be ALL questions
+    //        When choosing a checkbox at that point the state array `selectedQuestions` needs to be ALL questions not just the 5 from the context
+    //        Then we need to on submit generate random questions from the number that have been selected
+    //        If less than the number of questions (for now hard code to 5) then page can't be submitted
+
     return <>
         <h2>Quiz settings</h2>
         <label className="flex items-center">
