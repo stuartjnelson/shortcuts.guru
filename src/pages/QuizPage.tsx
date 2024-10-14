@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { generateRandomQuestions } from "./quizUtils";
 import QuizQuestion from "./QuizQuestion";
 import QuizResults from "./QuizResults";
 import type { Shortcut, QuizState, UserAnswer } from "../types/quiz.types"; // Define these types in a `quizTypes.ts` file
+import { useQuizSettings } from "../contexts/QuizSettingsContext";
 
 const QuizPage = () => {
   const { appName } = useParams<{ appName: string }>();
@@ -14,6 +14,8 @@ const QuizPage = () => {
   const [correctAnswerCount, setCorrectAnswerCount] = useState<number>(0);
   const [quizStageState, setQuizStageState] =
     useState<QuizState>("initalising");
+  
+  const { questions: randomQuestions } = useQuizSettings(); 
 
   useEffect(() => {
     if (appName !== "vscode") {
@@ -24,9 +26,6 @@ const QuizPage = () => {
   }, [appName, navigate]);
 
   const initializeQuiz = () => {
-    // @TODO: Make nunmber of questions a setting
-    // Create 5 questions
-    const randomQuestions = generateRandomQuestions(5);
     setQuestions(randomQuestions);
 
     setQuizStageState("inProgress");

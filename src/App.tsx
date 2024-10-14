@@ -4,10 +4,11 @@ import SelectionPage from "./pages/SelectionPage";
 import QuizPage from "./pages/QuizPage";
 import DefaultLayout from "./layouts/DefaultLayout";
 import QuizSettings from "./pages/QuizSettings";
+import { QuizSettingsProvider } from "./contexts/QuizSettingsContext";
 
 function App() {
   return (
-    <>
+    <QuizSettingsProvider>
       <Router>
         <Routes>
           <Route element={<DefaultLayout />}>
@@ -35,7 +36,7 @@ function App() {
           </svg>
         </p>
       </footer>
-    </>
+    </QuizSettingsProvider>
   );
 }
 
