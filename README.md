@@ -1,6 +1,6 @@
 # shortcuts.guru
 
-https://shortcutsguru.netlify.app/
+https://shortcuts.guru
 
 An app to help to learn shortcuts for applications using multi choice answers and shortcut input.
 
