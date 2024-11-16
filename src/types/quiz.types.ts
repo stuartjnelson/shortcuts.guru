@@ -7,6 +7,8 @@ export interface Shortcut {
   isEnterKeyTypeQuestion: boolean;
 }
 
+export interface ShortcutRawJson extends Omit<Shortcut, 'isEnterKeyTypeQuestion'> {}
+
 export type UserAnswer = string[];
 
 // The possible states the quiz can be in
