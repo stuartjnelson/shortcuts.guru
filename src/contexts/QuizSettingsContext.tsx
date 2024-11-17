@@ -34,6 +34,7 @@ export const QuizSettingsProvider: React.FC<{ children: ReactNode }> = ({
 };
 
 // Custom hook to use the QuizSettings context
+// eslint-disable-next-line react-refresh/only-export-components
 export const useQuizSettings = () => {
   const context = useContext(QuizSettingsContext);
   if (!context) {

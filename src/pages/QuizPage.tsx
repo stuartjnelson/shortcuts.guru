@@ -21,15 +21,11 @@ const QuizPage = () => {
     if (appName !== "vscode") {
       navigate("/quiz/select");
     } else {
-      initializeQuiz();
+      setQuestions(randomQuestions);
+
+      setQuizStageState("inProgress");
     }
-  }, [appName, navigate]);
-
-  const initializeQuiz = () => {
-    setQuestions(randomQuestions);
-
-    setQuizStageState("inProgress");
-  };
+  }, [appName, navigate, randomQuestions]);
 
   const saveAnswer = (userAnswer: string) => {
     // Add new answer onto array

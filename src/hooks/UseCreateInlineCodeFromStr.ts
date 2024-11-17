@@ -18,7 +18,7 @@ const useCreateInlineCodeFromStr = (
       /`([^`]+)`/g,
       "<code class='inline-block bg-gray-300 border border-gray-300 text-gray-900 font-mono text-sm px-2 py-1 rounded-md shadow-sm mx-1'>$1</code>"
     );
-  }, [[prependText, appendText, inlineCodeArray]]);
+  }, [prependText, appendText, inlineCodeArray]);
 
   // Return a function that generates the element using React.createElement
   const renderFormattedText = (): React.ReactNode => {
