@@ -6,36 +6,36 @@ import { generateRandomQuestions, getAllShortcutsForQuiz } from "./quizUtils";
 const QuizSettings = () => {
   const navigate = useNavigate();
   const { appName } = useParams<{ appName: string }>();
-  const { questions, setQuestions } = useQuizSettings();
+  // const { questions, setQuestions } = useQuizSettings();
+  const { setQuestions } = useQuizSettings();
 
-  const [selectedQuestions, setSelectedQuestions] = useState<string[]>(
-    questions.map((q) => q.description)
-  );
+  // const [selectedQuestions, setSelectedQuestions] = useState<string[]>(
+  //   questions.map((q) => q.description)
+  // );
   const [includeAllShortcuts, setIncludeAllShortcuts] = useState(true);
-
-  useEffect(() => {
-    // When we want to select shortcuts we need to get ALL of them THEN
-    // return just the description
-    debugger;
-    if (!includeAllShortcuts) {
-      const allShortcuts = getAllShortcutsForQuiz();
-
-      //   setSelectedQuestions(allShortcuts.map((q) => q.description));
-      setSelectedQuestions(allShortcuts.map((q) => q.description));
-    }
-  }, [includeAllShortcuts]);
+  const [shortcutsToInclude, setShortcutsToInclude] = useState<string[]>([]);
+  const [allShortcuts, setAllShortcuts] = useState<string[]>([]);
 
   // @TODO: On the first load we need to set our state
   useEffect(() => {
-    setSelectedQuestions(questions.map((q) => q.description));
+    setupAllShortcutsState();
   }, []);
+
+  const setupAllShortcutsState = () => {
+    const allQuizQuestions = getAllShortcutsForQuiz();
+
+    // Setting values to be used for checkbox list
+    setAllShortcuts(allQuizQuestions.map((q) => q.description));
+
+    setShortcutsToInclude(allQuizQuestions.map((q) => q.description));
+  };
 
   // Handle checkbox change
   const handleCheckboxChange = (description: string, isChecked: boolean) => {
     if (isChecked) {
-      setSelectedQuestions((prev) => [...prev, description]);
+      setShortcutsToInclude((prev) => [...prev, description]);
     } else {
-      setSelectedQuestions((prev) => {
+      setShortcutsToInclude((prev) => {
         const filteredPrev = prev.filter((desc) => desc !== description);
         debugger;
 
@@ -52,7 +52,7 @@ const QuizSettings = () => {
 
     const allQuestions = getAllShortcutsForQuiz();
     const filteredQuestions = allQuestions.filter(({ description }) =>
-      selectedQuestions.includes(description)
+      shortcutsToInclude.includes(description)
     );
 
     debugger;
@@ -95,7 +95,7 @@ const QuizSettings = () => {
       </label>
       {!includeAllShortcuts && (
         <ul>
-          {selectedQuestions.map((question, i) => {
+          {allShortcuts.map((question, i) => {
             return (
               <li key={i}>
                 <label className="flex items-center">
