@@ -7,7 +7,7 @@ export interface Shortcut {
   isEnterKeyTypeQuestion: boolean;
 }
 
-export interface ShortcutRawJson extends Omit<Shortcut, 'isEnterKeyTypeQuestion'> {}
+export type ShortcutRawJson = Omit<Shortcut, 'isEnterKeyTypeQuestion'>;
 
 export type UserAnswer = string[];
 

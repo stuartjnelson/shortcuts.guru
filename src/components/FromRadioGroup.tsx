@@ -9,7 +9,7 @@ interface FormRadioGroupProps {
   legend: string;
   //   options: Pick<Shortcut, "multipleChoiseOptions">;
   options: string[];
-  onChange: (value: string) => any;
+  onChange: (value: string) => void;
 }
 
 export default function FromRadioGroup({
@@ -18,7 +18,7 @@ export default function FromRadioGroup({
   options,
   onChange,
 }: FormRadioGroupProps) {
-  let [selected, setSelected] = React.useState("");
+  const [selected, setSelected] = React.useState("");
 
   useEffect(() => {
     onChange(selected);
