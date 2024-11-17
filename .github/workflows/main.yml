@@ -22,8 +22,5 @@ jobs:
       - name: Install node dependencies
         run: npm ci
 
-      - name: Run linters action
-        uses: wearerequired/lint-action@v2
-        with:
-          eslint: true
-          tsc: true
+      - name: Run lint
+        run: npm run lint
