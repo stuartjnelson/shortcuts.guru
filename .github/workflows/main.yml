@@ -6,33 +6,6 @@ env:
   NODE_VERSION: 20.18.0 # Global variable for Node.js version
 
 jobs:
-  install:
-    name: Install Dependencies
-    runs-on: ubuntu-latest
-    outputs:
-      cache-path: ${{ steps.cache-node.outputs.cache-hit }}
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-
-      - name: Cache Node.js dependencies
-        id: cache-node
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      - name: Install dependencies
-        if: steps.cache-node.outputs.cache-hit != 'true'
-        run: npm ci
-
   lint:
     name: Lint Code
     runs-on: ubuntu-latest
@@ -46,8 +19,8 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - name: Use Cached Dependencies
-        run: npm ci --offline
+      - name: Install deps
+        run: npm ci
 
       - name: Run ESLint
         run: npm run lint
@@ -65,8 +38,8 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - name: Use Cached Dependencies
-        run: npm ci --offline
+      - name: Install deps
+        run: npm ci
 
       - name: Build application
         run: npm run build
