@@ -6,15 +6,11 @@ import { generateRandomQuestions, getAllShortcutsForQuiz } from "./quizUtils";
 const QuizSettings = () => {
   const navigate = useNavigate();
   const { appName } = useParams<{ appName: string }>();
-  // const { questions, setQuestions } = useQuizSettings();
   const { setQuestions } = useQuizSettings();
 
-  // const [selectedQuestions, setSelectedQuestions] = useState<string[]>(
-  //   questions.map((q) => q.description)
-  // );
-  const [includeAllShortcuts, setIncludeAllShortcuts] = useState(true);
-  const [shortcutsToInclude, setShortcutsToInclude] = useState<string[]>([]);
+  const [editShortcutsToInclude, setEditShortcutsToInclude] = useState(true);
   const [allShortcuts, setAllShortcuts] = useState<string[]>([]);
+  const [shortcutsToInclude, setShortcutsToInclude] = useState<string[]>([]);
 
   // @TODO: On the first load we need to set our state
   useEffect(() => {
@@ -22,64 +18,61 @@ const QuizSettings = () => {
   }, []);
 
   const setupAllShortcutsState = () => {
-    const allQuizQuestions = getAllShortcutsForQuiz();
+    // Get all shortcut data for current quiz
+    const allQuizQuestionsDescriptions = getAllShortcutsForQuiz().map(
+      (q) => q.description
+    );
 
-    // Setting values to be used for checkbox list
-    setAllShortcuts(allQuizQuestions.map((q) => q.description));
+    // Set all shortcut descriptions to be used for creating list of checkboxes to select which shortcuts you want in the quiz
+    setAllShortcuts(allQuizQuestionsDescriptions);
 
-    setShortcutsToInclude(allQuizQuestions.map((q) => q.description));
+    // State for which shortcuts you want included in your quiz
+    setShortcutsToInclude(allQuizQuestionsDescriptions);
   };
 
   // Handle checkbox change
-  const handleCheckboxChange = (description: string, isChecked: boolean) => {
+  const handleCheckboxChange = (
+    shortcutDescription: string,
+    isChecked: boolean
+  ) => {
     if (isChecked) {
-      setShortcutsToInclude((prev) => [...prev, description]);
+      // Add `shortcutDescription` to be included in the quiz
+      setShortcutsToInclude((prev) => [...prev, shortcutDescription]);
     } else {
-      setShortcutsToInclude((prev) => {
-        const filteredPrev = prev.filter((desc) => desc !== description);
-        debugger;
-
-        return filteredPrev;
-      });
+      // Remove `shortcutDescription` to be included in the quiz
+      setShortcutsToInclude((prev) =>
+        prev.filter((prevDesc) => prevDesc !== shortcutDescription)
+      );
     }
   };
 
   const handleSubmit = () => {
-    // 1. Confirm questions to be used in quiz
-    // const filteredQuestions = questions.filter((question) =>
-    //   selectedQuestions.includes(question.description)
-    // );
+    // 1. Check we have enough shortcuts
+    if (shortcutsToInclude.length < 5) {
+      alert(
+        `You must select atleast 5 shortcuts to be included in the quiz. You have only selected ${shortcutsToInclude.length}`
+      );
 
+      return;
+    }
+
+    // 2. Get all quiz questions
     const allQuestions = getAllShortcutsForQuiz();
+
+    // 3. Filter all quiz questions by selected checkboxes
     const filteredQuestions = allQuestions.filter(({ description }) =>
       shortcutsToInclude.includes(description)
     );
 
-    debugger;
-
+    // 4. Generate random list of quetions
     const randomQuestions = generateRandomQuestions(5, filteredQuestions);
 
-    // Need to add in check that we have minimum number of questions
-
+    // 5. Set context state with our random questions
     setQuestions(randomQuestions); // Update the global questions array
 
-    debugger;
-
-    // 2. Navigate to start quiz
+    // 6. Navigate to start quiz
     navigate(`/quiz/${appName}/new`);
   };
-
-  // @TODO:
-  //        I feel this page sould be responisble for setting random quesitons not the context. Context sets it to be ALL questions
-  //        When choosing a checkbox at that point the state array `selectedQuestions` needs to be ALL questions not just the 5 from the context
-  //        Then we need to on submit generate random questions from the number that have been selected
-  //        If less than the number of questions (for now hard code to 5) then page can't be submitted
-
-  //   @TODO
-  //   1. How does this component have access to all shortcuts without importing the JSON?
-  //   2. ~~`selectedQuestions` should be all questions minus any that have been unselcected~~
-  //   3. ~~THEN we can on submit randonly set 5 questions to be choosen from the filtered list~~~
-  //   4. Now need to ensure that de-couple selected items from the list of checkboxes as currently when unselect a checkbox it is removed from the list
 
   return (
     <>
@@ -87,13 +80,13 @@ const QuizSettings = () => {
       <label className="flex items-center">
         <input
           type="checkbox"
-          defaultChecked={true} // Checkbox is checked by default
+          defaultChecked={true}
           className="mr-2"
-          onChange={() => setIncludeAllShortcuts(!includeAllShortcuts)}
+          onChange={() => setEditShortcutsToInclude(!editShortcutsToInclude)}
         />
         Include all shortcuts
       </label>
-      {!includeAllShortcuts && (
+      {!editShortcutsToInclude && (
         <ul>
           {allShortcuts.map((question, i) => {
             return (
@@ -101,7 +94,7 @@ const QuizSettings = () => {
                 <label className="flex items-center">
                   <input
                     type="checkbox"
-                    defaultChecked={true} // Checkbox is checked by default
+                    defaultChecked={true}
                     className="mr-2"
                     onChange={(e) =>
                       handleCheckboxChange(question, e.target.checked)
