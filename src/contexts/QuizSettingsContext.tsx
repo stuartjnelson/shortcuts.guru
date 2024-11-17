@@ -4,6 +4,7 @@ import { generateRandomQuestions } from "../pages/quizUtils";
 
 // Define the shape of the context for quiz settings
 interface QuizSettingsContextType {
+  numberOfQuestions: number;
   questions: Shortcut[];
   setQuestions: (questions: Shortcut[]) => void;
 }
@@ -17,13 +18,16 @@ const QuizSettingsContext = createContext<QuizSettingsContextType | undefined>(
 export const QuizSettingsProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
+  const numberOfQuestions = 5;
   // @TODO: This will need to be dynamic based on URL param `:appName` as currently hardcoded to be VSCode
-  const randomQuestions = generateRandomQuestions(5);
+  const randomQuestions = generateRandomQuestions(numberOfQuestions);
   //   const [questions, setQuestions] = useState<Shortcut[]>([]); // Initialize with all questions from JSON
   const [questions, setQuestions] = useState<Shortcut[]>(randomQuestions); // Initialize with all questions from JSON
 
   return (
-    <QuizSettingsContext.Provider value={{ questions, setQuestions }}>
+    <QuizSettingsContext.Provider
+      value={{ numberOfQuestions, questions, setQuestions }}
+    >
       {children}
     </QuizSettingsContext.Provider>
   );
