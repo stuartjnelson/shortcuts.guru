@@ -3,13 +3,12 @@ name: CI Workflow
 on: [pull_request]
 
 env:
-  RUNS_ON: ubuntu-latest
   NODE_VERSION: 20.18.0
 
 jobs:
   lint:
     name: Lint
-    runs-on: ${{ env.RUNS_ON }}
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
